@@ -1,67 +1,65 @@
-pipeline TreesPipeline {
-    TreesExtractor -> TreesTextFileInterpreter;
-    TreesTextFileInterpreter -> TreesCSVInterpreter;
-    TreesCSVInterpreter -> BaumartDeutschDeleter
-                         -> TreesDataFilter
-                         -> TreesTableInterpreter
-                         -> TreesLoader;
-}
+pipeline TreeDataPipeline{
+
+   TreeDataExtractor -> TreeDataTextFileInterpreter
+        -> TreeDataCSVInterpreter
+        -> TreeColumnDeleter
+        -> TreeDataTableInterpreter
+        -> TreeDataLoader;
+
+
+
+
 
 // Step 1: Define data extraction block
-block TreesExtractor oftype HttpExtractor {
+block TreeDataExtractor oftype HttpExtractor {
     url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv";
 }
 
 // Step 2: Define interpreters for text file and CSV format
-block TreesTextFileInterpreter oftype TextFileInterpreter { }
+block TreeDataTextFileInterpreter oftype TextFileInterpreter { }
 
-block TreesCSVInterpreter oftype CSVInterpreter {
+block TreeDataCSVInterpreter oftype CSVInterpreter {
     delimiter: ';';
 }
 
 // Step 3: Delete unwanted column "baumart_deutsch"
-block BaumartDeutschDeleter oftype ColumnDeleter {
-    delete: [column "baumart_deutsch"];
+block TreeColumnDeleter oftype ColumnDeleter {
+    delete: [column E]; 
 }
 
-// Step 4: Define constraints and filters
-valuetype StadtFurth oftype text {
-    constraints: [FurthSelector];
+// Step 4: Define constraints for "stadtteil" and "id"
+valuetype StadtteilFurth oftype text {
+    constraints: [FurthPrefix];
 }
-constraint FurthSelector oftype RegexConstraint {
+constraint FurthPrefix oftype RegexConstraint {
     regex: /^Vogelsang.*/;
 }
 
-valuetype GeoPointValue oftype text {
-    constraints: [GeoPoints];
+valuetype GeoPattern oftype text {
+    constraints: [IDGeoPattern];
 }
-constraint GeoPoints oftype RegexConstraint {
-    regex: /^\d{1,3}\.\d+,\s*\d{1,3}\.\d+$/;
+constraint IDGeoPattern oftype RegexConstraint {
+    regex: /^\d{1,3}\.\d+, \d{1,3}\.\d+$/;
 }
 
 // Step 5: Define data filtering block to remove invalid rows
-block TreesDataFilter oftype RowFilter {
-    rules: [
-        { column: "stadtteil", valid: StadtFurth },
-        { column: "id", valid: GeoPointValue }
-    ];
-}
-
-// Step 6: Interpret columns with appropriate types and constraints
-block TreesTableInterpreter oftype TableInterpreter {
+block TreeDataTableInterpreter oftype TableInterpreter {
     header: true;
     columns: [
         "lfd_nr" oftype integer,
-        "stadtteil" oftype StadtFurth,
+        "stadtteil" oftype StadtteilFurth,
         "standort" oftype text,
         "baumart_botanisch" oftype text,
-        "id" oftype GeoPointValue,
+        "id" oftype GeoPattern,
         "baumfamilie" oftype text
     ];
 }
 
-// Step 7: Load filtered data into SQLite
-block TreesLoader oftype SQLiteLoader {
+// Step 6: Load filtered data into SQLite
+block TreeDataLoader oftype SQLiteLoader {
     table: "trees";
     file: "./trees.sqlite";
+}
+
+// Pipeline Structure: Define the sequence for data processing
 }
