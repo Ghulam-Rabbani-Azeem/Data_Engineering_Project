@@ -1,0 +1,67 @@
+pipeline TreesPipeline {
+    TreesExtractor -> TreesTextFileInterpreter;
+    TreesTextFileInterpreter -> TreesCSVInterpreter;
+    TreesCSVInterpreter -> BaumartDeutschDeleter
+                         -> TreesDataFilter
+                         -> TreesTableInterpreter
+                         -> TreesLoader;
+}
+
+// Step 1: Define data extraction block
+block TreesExtractor oftype HttpExtractor {
+    url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/stadt-neuss-herbstpflanzung-2023/exports/csv";
+}
+
+// Step 2: Define interpreters for text file and CSV format
+block TreesTextFileInterpreter oftype TextFileInterpreter { }
+
+block TreesCSVInterpreter oftype CSVInterpreter {
+    delimiter: ';';
+}
+
+// Step 3: Delete unwanted column "baumart_deutsch"
+block BaumartDeutschDeleter oftype ColumnDeleter {
+    delete: [column "baumart_deutsch"];
+}
+
+// Step 4: Define constraints and filters
+valuetype StadtFurth oftype text {
+    constraints: [FurthSelector];
+}
+constraint FurthSelector oftype RegexConstraint {
+    regex: /^Vogelsang.*/;
+}
+
+valuetype GeoPointValue oftype text {
+    constraints: [GeoPoints];
+}
+constraint GeoPoints oftype RegexConstraint {
+    regex: /^\d{1,3}\.\d+,\s*\d{1,3}\.\d+$/;
+}
+
+// Step 5: Define data filtering block to remove invalid rows
+block TreesDataFilter oftype RowFilter {
+    rules: [
+        { column: "stadtteil", valid: StadtFurth },
+        { column: "id", valid: GeoPointValue }
+    ];
+}
+
+// Step 6: Interpret columns with appropriate types and constraints
+block TreesTableInterpreter oftype TableInterpreter {
+    header: true;
+    columns: [
+        "lfd_nr" oftype integer,
+        "stadtteil" oftype StadtFurth,
+        "standort" oftype text,
+        "baumart_botanisch" oftype text,
+        "id" oftype GeoPointValue,
+        "baumfamilie" oftype text
+    ];
+}
+
+// Step 7: Load filtered data into SQLite
+block TreesLoader oftype SQLiteLoader {
+    table: "trees";
+    file: "./trees.sqlite";
+}
