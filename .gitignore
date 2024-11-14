@@ -1,3 +1,4 @@
 
 /data/*
 !/data/.gitkeep
+/jayvee_env/*
