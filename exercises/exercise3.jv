@@ -1,112 +1,107 @@
-pipeline WorldDevelopmentReportPipeline {
+pipeline WorldBankDataProcessingPipeline {
 
-    // Extract Excel data from external link
-    block ExcelExtractor oftype HttpExtractor {
+    // Fetch data from the provided external Excel link
+    block FetchExcelData oftype HttpExtractor {
         url: "https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx";
     }
 
-    // Interpret Excel file, select specific sheet and range
+    // Process the fetched Excel data
     block ExcelInterpreter oftype XLSXInterpreter {}
 
-    // Block to specify the sheet to extract from the Excel file
-    block ExcelSheetPicker oftype SheetPicker {
+    // Define the sheet selection from the Excel document
+    block ChooseSheet oftype SheetPicker {
         sheetName: "Figure S5.1.2";
     }
 
-    // Block to specify the exact range within the selected sheet
-    block ExcelRangePicker oftype CellRangeSelector {
+    // Specify the data range to be extracted from the sheet
+    block SelectDataRange oftype CellRangeSelector {
         select: range P2:S45;
     }
 
-    // Block to rename header columns explicitly using CellWriter
-    block ColumnRenamer oftype CellWriter {
+    // Explicitly rename columns in the sheet for clarity using CellWriter
+    block RenameColumns oftype CellWriter {
         at: range A1:A4;
         write: [
-            "Country Code",           // "ISO3" -> "Country Code"
-            "Economy",                // Original column name remains unchanged
-            "GDP per Capita",         // "GDP per capita (US$, thousands)" -> "GDP per Capita"
-            "Bond Issuance Share"     // "Share of government sustainable bonds" -> "Bond Issuance Share"
+            "Country Code",           // "ISO3" renamed to "Country Code"
+            "Economy",                // Original column name unchanged
+            "GDP per Capita",         // "GDP per capita (US$, thousands)" renamed to "GDP per Capita"
+            "Bond Issuance Share"     // "Share of government sustainable bonds" renamed to "Bond Issuance Share"
         ];
     }
 
-    // Delete unnecessary columns for gdpPerCapita Table
-    block GPDTableColumnDeleter oftype ColumnDeleter {
+    // Remove unnecessary columns for the GDP per Capita data table
+    block RemoveGDPColumns oftype ColumnDeleter {
         delete: [column B, column D];
     }
 
-    // Validate the data for GDP table
-    block GPDTableDataValidator oftype TableInterpreter {
+    // Data validation for GDP table
+    block ValidateGDPData oftype TableInterpreter {
         header: false;
         columns: [
             "Country Code" oftype CountryCodeAlpha3,
-            "GDP per Capita" oftype PositiveDecimal
+            // "Economy" oftype text,
+            "GDP per Capita" oftype PositiveInteger,
+            // "Bond Issuance Share" oftype DecimalType
         ];
     }
 
-    // Delete unnecessary columns for bondIssuance Table
-    block BondTableColumnDeleter oftype ColumnDeleter {
+    // Remove unnecessary columns for the Bond Issuance data table
+    block RemoveBondColumns oftype ColumnDeleter {
         delete: [column B, column C];
     }
 
-    // Validate the data for Bond Issuance table
-    block BondTableDataValidator oftype TableInterpreter {
+    // Data validation for Bond Issuance table
+    block ValidateBondData oftype TableInterpreter {
         header: false;
         columns: [
             "Country Code" oftype CountryCodeAlpha3,
-            "Bond Issuance Share" oftype ConstrainedDecimal
+            // "Economy" oftype text,
+            // "GDP per Capita" oftype PositiveInteger,
+            "Bond Issuance Share" oftype DecimalType
         ];
     }
 
-    // Load GDP data into SQLite
-    block GDPLoader oftype SQLiteLoader {
-        table: "gdpPerCapita";
-        file: "country-stats.sqlite";
-    }
-
-    // Load bond issuance data into SQLite
-    block BondIssuanceLoader oftype SQLiteLoader {
+    // Load Bond Issuance data into the SQLite database
+    block LoadBondIssuanceData oftype SQLiteLoader {
         table: "bondIssuance";
         file: "country-stats.sqlite";
     }
 
-    // Constraints and value types for validation
-    constraint PositiveDecimalConstraint on decimal:
-        value > 0;
+    // Load GDP per Capita data into the SQLite database
+    block LoadGDPData oftype SQLiteLoader {
+        table: "gdpPerCapita";
+        file: "country-stats.sqlite";
+    }
 
+    // Define constraint for non-negative decimal values
+    constraint PositiveConstraint on decimal:
+        value >= 0;
+
+    // Define the PostiveInteger type with validation
+    valuetype PositiveInteger oftype decimal {
+        constraints: [PositiveConstraint];
+    }
+
+    // Define the DecimalType with constraints for range (0 to 1)
     constraint DecimalConstraint on decimal:
         value >= 0 and value <= 1;
 
-    // Define positive decimal type for GDP
-    valuetype PositiveDecimal oftype decimal {
-        constraints: [PositiveDecimalConstraint];
-    }
-
-    // Define constrained decimal type for Bond Issuance Share
-    valuetype ConstrainedDecimal oftype decimal {
+    valuetype DecimalType oftype decimal {
         constraints: [DecimalConstraint];
     }
 
-    // Define ISO3 country code constraint for validation
-    constraint ISOAlpha3CodeConstraint on text:
-        value matches /^[A-Za-z]{3}$/;
-
-    // Define ISOAlpha3Code valuetype for country codes
-    valuetype CountryCodeAlpha3 oftype text {
-        constraints: [ISOAlpha3CodeConstraint];
-    }
-
     // Define the pipeline flow
-    ExcelExtractor -> 
+    FetchExcelData -> 
     ExcelInterpreter -> 
-    ExcelSheetPicker -> 
-    ExcelRangePicker -> 
-    ColumnRenamer -> 
-    GPDTableColumnDeleter -> 
-    GPDTableDataValidator -> 
-    GDPLoader;
+    ChooseSheet -> 
+    SelectDataRange -> 
+    RenameColumns -> 
+    RemoveGDPColumns ->
+    ValidateGDPData ->
+    LoadGDPData;
 
-    ColumnRenamer -> 
-    BondTableColumnDeleter -> 
-    BondTableDataValidator -> 
-    BondIssuanceLoader;
+    RenameColumns -> 
+    RemoveBondColumns ->
+    ValidateBondData ->
+    LoadBondIssuanceData;
 }
