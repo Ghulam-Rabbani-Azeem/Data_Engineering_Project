@@ -1,0 +1,108 @@
+pipeline WorldDevelopmentReportPipeline {
+
+    // Extract data from the given URL
+    block ExcelExtractor oftype HttpExtractor {
+        url: "https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx";
+    }
+
+    // Interpret the Excel file
+    block FileInterpreter oftype XLSXInterpreter {}
+
+    // Pick the specific sheet containing the data
+    block SheetSelector oftype SheetPicker {
+        sheetName: "Figure S5.1.2";
+    }
+
+    // Focus on the table with data only (P2:S45)
+    block TableRangeSelector oftype CellRangeSelector {
+        select: range P2:S45;
+    }
+
+    // Rename the columns as per requirements
+    block HeaderRenamer oftype CellWriter {
+        at: range A1:A4;
+        write: [
+            "Country Code", 
+            "Economy", 
+            "GDP per Capita", 
+            "Bond Issuance Share"
+        ];
+    }
+
+    // Prepare the GDP per Capita table by dropping unnecessary columns
+    block GDPColumnsFilter oftype ColumnDeleter {
+        delete: [column B, column D];
+    }
+
+    // Validate the GDP per Capita table
+    block GDPValidator oftype TableInterpreter {
+        header: false;
+        columns: [
+            "Country Code" oftype ISOAlpha3Code,
+            "GDP per Capita" oftype PositiveDecimal
+        ];
+    }
+
+    // Prepare the Bond Issuance Share table by dropping unnecessary columns
+    block BondColumnsFilter oftype ColumnDeleter {
+        delete: [column B, column C];
+    }
+
+    // Validate the Bond Issuance Share table
+    block BondValidator oftype TableInterpreter {
+        header: false;
+        columns: [
+            "Country Code" oftype ISOAlpha3Code,
+            "Bond Issuance Share" oftype ConstrainedDecimal
+        ];
+    }
+
+    // Load GDP data into the SQLite database
+    block GDPDataLoader oftype SQLiteLoader {
+        table: "gdpPerCapita";
+        file: "country-stats.sqlite";
+    }
+
+    // Load Bond Issuance Share data into the SQLite database
+    block BondDataLoader oftype SQLiteLoader {
+        table: "bondIssuance";
+        file: "country-stats.sqlite";
+    }
+
+    // Constraints and value types
+    constraint IsPositiveDecimal on decimal:
+        value > 0;
+
+    valuetype PositiveDecimal oftype decimal {
+        constraints: [IsPositiveDecimal];
+    }
+
+    constraint IsDecimalWithinRange on decimal:
+        value >= 0 and value <= 1;
+
+    valuetype ConstrainedDecimal oftype decimal {
+        constraints: [IsDecimalWithinRange];
+    }
+
+    constraint IsValidCountryCode on text:
+        value matches /^[A-Za-z]{3}$/;
+
+    valuetype ISOAlpha3Code oftype text {
+        constraints: [IsValidCountryCode];
+    }
+
+    // Define pipeline flow
+    ExcelExtractor -> 
+    FileInterpreter -> 
+    SheetSelector -> 
+    TableRangeSelector -> 
+    HeaderRenamer -> 
+    GDPColumnsFilter -> 
+    GDPValidator -> 
+    GDPDataLoader;
+
+    HeaderRenamer -> 
+    BondColumnsFilter -> 
+    BondValidator -> 
+    BondDataLoader;
+}
