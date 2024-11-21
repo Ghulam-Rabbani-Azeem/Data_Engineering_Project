@@ -1,108 +1,112 @@
 pipeline WorldDevelopmentReportPipeline {
 
-    // Extract data from the given URL
+    // Extract Excel data from external link
     block ExcelExtractor oftype HttpExtractor {
         url: "https://thedocs.worldbank.org/en/doc/7d852628d96b9411d43e5d36d5dff941-0050062022/original/Graphs-Chapter-5-02082022.xlsx";
     }
 
-    // Interpret the Excel file
-    block FileInterpreter oftype XLSXInterpreter {}
+    // Interpret Excel file, select specific sheet and range
+    block ExcelInterpreter oftype XLSXInterpreter {}
 
-    // Pick the specific sheet containing the data
-    block SheetSelector oftype SheetPicker {
+    // Block to specify the sheet to extract from the Excel file
+    block ExcelSheetPicker oftype SheetPicker {
         sheetName: "Figure S5.1.2";
     }
 
-    // Focus on the table with data only (P2:S45)
-    block TableRangeSelector oftype CellRangeSelector {
+    // Block to specify the exact range within the selected sheet
+    block ExcelRangePicker oftype CellRangeSelector {
         select: range P2:S45;
     }
 
-    // Rename the columns as per requirements
-    block HeaderRenamer oftype CellWriter {
+    // Block to rename header columns explicitly using CellWriter
+    block ColumnRenamer oftype CellWriter {
         at: range A1:A4;
         write: [
-            "Country Code", 
-            "Economy", 
-            "GDP per Capita", 
-            "Bond Issuance Share"
+            "Country Code",           // "ISO3" -> "Country Code"
+            "Economy",                // Original column name remains unchanged
+            "GDP per Capita",         // "GDP per capita (US$, thousands)" -> "GDP per Capita"
+            "Bond Issuance Share"     // "Share of government sustainable bonds" -> "Bond Issuance Share"
         ];
     }
 
-    // Prepare the GDP per Capita table by dropping unnecessary columns
-    block GDPColumnsFilter oftype ColumnDeleter {
+    // Delete unnecessary columns for gdpPerCapita Table
+    block GPDTableColumnDeleter oftype ColumnDeleter {
         delete: [column B, column D];
     }
 
-    // Validate the GDP per Capita table
-    block GDPValidator oftype TableInterpreter {
+    // Validate the data for GDP table
+    block GPDTableDataValidator oftype TableInterpreter {
         header: false;
         columns: [
-            "Country Code" oftype ISOAlpha3Code,
+            "Country Code" oftype CountryCodeAlpha3,
             "GDP per Capita" oftype PositiveDecimal
         ];
     }
 
-    // Prepare the Bond Issuance Share table by dropping unnecessary columns
-    block BondColumnsFilter oftype ColumnDeleter {
+    // Delete unnecessary columns for bondIssuance Table
+    block BondTableColumnDeleter oftype ColumnDeleter {
         delete: [column B, column C];
     }
 
-    // Validate the Bond Issuance Share table
-    block BondValidator oftype TableInterpreter {
+    // Validate the data for Bond Issuance table
+    block BondTableDataValidator oftype TableInterpreter {
         header: false;
         columns: [
-            "Country Code" oftype ISOAlpha3Code,
+            "Country Code" oftype CountryCodeAlpha3,
             "Bond Issuance Share" oftype ConstrainedDecimal
         ];
     }
 
-    // Load GDP data into the SQLite database
-    block GDPDataLoader oftype SQLiteLoader {
+    // Load GDP data into SQLite
+    block GDPLoader oftype SQLiteLoader {
         table: "gdpPerCapita";
         file: "country-stats.sqlite";
     }
 
-    // Load Bond Issuance Share data into the SQLite database
-    block BondDataLoader oftype SQLiteLoader {
+    // Load bond issuance data into SQLite
+    block BondIssuanceLoader oftype SQLiteLoader {
         table: "bondIssuance";
         file: "country-stats.sqlite";
     }
 
-    // Constraints and value types
-    constraint IsPositiveDecimal on decimal:
+    // Constraints and value types for validation
+    constraint PositiveDecimalConstraint on decimal:
         value > 0;
 
-    valuetype PositiveDecimal oftype decimal {
-        constraints: [IsPositiveDecimal];
-    }
-
-    constraint IsDecimalWithinRange on decimal:
+    constraint DecimalConstraint on decimal:
         value >= 0 and value <= 1;
 
-    valuetype ConstrainedDecimal oftype decimal {
-        constraints: [IsDecimalWithinRange];
+    // Define positive decimal type for GDP
+    valuetype PositiveDecimal oftype decimal {
+        constraints: [PositiveDecimalConstraint];
     }
 
-    constraint IsValidCountryCode on text:
+    // Define constrained decimal type for Bond Issuance Share
+    valuetype ConstrainedDecimal oftype decimal {
+        constraints: [DecimalConstraint];
+    }
+
+    // Define ISO3 country code constraint for validation
+    constraint ISOAlpha3CodeConstraint on text:
         value matches /^[A-Za-z]{3}$/;
 
-    valuetype ISOAlpha3Code oftype text {
-        constraints: [IsValidCountryCode];
+    // Define ISOAlpha3Code valuetype for country codes
+    valuetype CountryCodeAlpha3 oftype text {
+        constraints: [ISOAlpha3CodeConstraint];
     }
 
-    // Define pipeline flow
+    // Define the pipeline flow
     ExcelExtractor -> 
-    FileInterpreter -> 
-    SheetSelector -> 
-    TableRangeSelector -> 
-    HeaderRenamer -> 
-    GDPColumnsFilter -> 
-    GDPValidator -> 
-    GDPDataLoader;
+    ExcelInterpreter -> 
+    ExcelSheetPicker -> 
+    ExcelRangePicker -> 
+    ColumnRenamer -> 
+    GPDTableColumnDeleter -> 
+    GPDTableDataValidator -> 
+    GDPLoader;
 
-    HeaderRenamer -> 
-    BondColumnsFilter -> 
-    BondValidator -> 
-    BondDataLoader;
+    ColumnRenamer -> 
+    BondTableColumnDeleter -> 
+    BondTableDataValidator -> 
+    BondIssuanceLoader;
 }
