@@ -1,59 +1,94 @@
-# Project Plan
+# Project Plan: Analyzing Renewable Energy Impact on Carbon Emissions
 
-## Title
-**Analyzing the Impact of Renewable Energy Adoption on National Carbon Emissions and Economic Growth (2010-2020)**
+## **Title**
+**"Analyzing the Relationship Between Renewable Energy Consumption and Carbon Dioxide Emissions Across Sectors in the United States (1973–2024)"**
 
-## Main Question
-**How has the adoption of renewable energy sources impacted national carbon emissions and economic growth from 2010 to 2020?**
+## **Main Question**
+How does renewable energy consumption influence carbon dioxide emissions across sectors in the United States?
 
-## Description
-Transitioning to renewable energy is a critical component in addressing climate change while ensuring economic growth. This project investigates how renewable energy adoption from 2010 to 2020 has influenced national carbon emissions and economic performance. By analyzing renewable energy data, carbon emissions, and GDP growth, the study aims to uncover significant trends and relationships that can inform future policies.
+## **Description**
+With the rising urgency of climate change, understanding the dynamics between renewable energy adoption and carbon dioxide (CO₂) emissions is crucial. This project aims to analyze renewable energy consumption data and CO₂ emissions data across various sectors in the United States from 1973 to 2024. By cleaning, transforming, and analyzing the data, we will identify trends, sector-specific impacts, and actionable insights for policymakers to enhance sustainability initiatives. This includes statistical analysis and exploratory data analysis (EDA) to reveal correlations, trends, and improvement opportunities for the adoption of renewable energy.
 
-### Objectives:
-1. Determine whether countries with higher renewable energy adoption achieved notable reductions in carbon emissions.
-2. Assess whether renewable energy investments have positively or negatively impacted economic growth.
-3. Provide actionable insights for balancing sustainability with economic development.
+## **Datasources**
 
----
+### Datasource 1: Renewable Energy Consumption Dataset
+- **Data URL**: [Renewable Energy Consumption in the U.S.](https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s?resource=download)
+- **Metadata URL**: [Dataset Metadata](https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s)
+- **Data Type**: CSV
 
-## Datasources
+### Datasource 2: Carbon Dioxide Emissions Dataset
+- **Data URL**: [CO2 Emissions in the USA](https://www.kaggle.com/datasets/abdelrahman16/co2-emissions-usa)
+- **Metadata URL**: [Dataset Metadata](https://www.kaggle.com/datasets/abdelrahman16/co2-emissions-usa)
+- **Data Type**: CSV
 
-### Datasource 1: Renewable Energy Consumption in the U.S.
-- **Metadata URL**: [U.S. Renewable Energy Consumption Dataset](https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s)  
-- **Data URL**: [Renewable Energy Consumption in the U.S. CSV](https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s/download)  
-- **Data Type**: CSV  
-- **Description**:  
-  This dataset provides monthly data on renewable energy consumption in the United States from 1973 to 2024. It includes a breakdown by energy source (e.g., solar, wind, hydro) and consumption sector (residential, industrial, etc.), enabling detailed analysis of renewable energy trends, seasonal variations, and contributions of different sources to the energy mix.
+## **Resources**
 
-### Datasource 2: Global Renewable Energy and Indicators Dataset  
-- **Metadata URL**: [Global Renewable Energy Dataset](https://www.kaggle.com/datasets/anishvijay/global-renewable-energy-and-indicators-dataset)  
-- **Data URL**: [Global Renewable Energy CSV](https://www.kaggle.com/datasets/anishvijay/global-renewable-energy-and-indicators-dataset/download)  
-- **Data Type**: CSV  
-- **Description**:  
-  This dataset covers global renewable energy statistics along with socio-economic indicators, such as GDP, population, and CO2 emissions. It spans multiple years and regions, offering insights into the relationship between renewable energy adoption, economic growth, and environmental impact. The data is useful for analyzing global trends in renewable energy generation and its effects on sustainability.
-
----
-
-## Deliverables
-- **Data Cleaning and Processing:** Clean and consolidate datasets for comprehensive analysis.
-- **Analysis Report:** Correlation insights between renewable energy usage, carbon emissions, and GDP growth.
-- **Visualizations:** Informative charts and graphs on renewable energy trends and impacts.
-- **Policy Recommendations:** Data-driven suggestions for balancing environmental sustainability with economic growth.
-
----
+- [Renewable Energy and Climate Change](https://www.iea.org/topics/renewables)
+- [EPA's Carbon Emissions Data](https://www.epa.gov/ghgemissions)
+- [National Renewable Energy Laboratory (NREL)](https://www.nrel.gov/)
+- [Exploring Energy Trends](https://www.eia.gov/)
 
 ## Work Packages
 
-1. **Define Problem Statement and Objectives:** Clearly outline the research question and objectives.  
-2. **Identify and Collect Data:** Locate datasets relevant to renewable energy, carbon emissions, and GDP.  
-3. **Data Preprocessing and Validation:** Clean, format, and validate the data for analysis.  
-4. **Schema Matching for 2 Datasets:** Integrate data sources for consistency and compatibility.  
-5. **Analyze Trends and Visualize Data:** Identify patterns and create visualizations for insights.  
-6. **Correlation Analysis:** Study relationships between renewable energy adoption, emissions, and GDP growth.  
-7. **Strategies Proposal:** Suggest actionable strategies to balance renewable energy adoption with economic growth.  
-8. **Impact Assessment:** Evaluate the effectiveness of renewable energy adoption on emissions and economy.  
-9. **Compilation:** Compile findings and present policy recommendations.  
-10. **Final Report:** Prepare a comprehensive report summarizing insights and conclusions.
+[WP1] Define Project Scope and Objectives
+
+Define the overall project scope, including the datasets, tools, and desired outcomes.
+
+[WP2] Conduct Literature Review
+
+Review existing research on renewable energy and its impact on CO₂ emissions.
+
+[WP3] Search for Suitable Datasets
+
+Identify and assess datasets relevant to renewable energy consumption and CO₂ emissions.
+
+[WP4] Data Retrieval and Initial Inspection
+
+Download and inspect the datasets to understand their structure and contents.
+
+[WP5] Data Cleaning and Preprocessing
+
+Handle missing values, standardize formats, and ensure consistency across datasets.
+
+[WP6] Exploratory Data Analysis (EDA)
+
+Perform EDA to visualize trends, correlations, and insights across sectors and states.
+
+[WP7] Feature Engineering
+
+Generate new features or variables for better analysis and modeling.
+
+[WP8] Data Integration
+
+Merge datasets on shared dimensions such as year, sector, and state.
+
+[WP9] Statistical Analysis
+
+Conduct correlation and trend analysis to explore relationships between renewable energy consumption and emissions.
+
+[WP10] Model Selection and Training
+
+Use predictive models (if applicable) to forecast emissions trends based on renewable energy data.
+
+[WP11] Analyze Results and Generate Insights
+
+Summarize findings and provide actionable recommendations.
+
+[WP12] Prepare Report
+
+Document methodology, findings, and conclusions in a detailed report.
+
+[WP13] Develop Dashboards and Visualizations
+
+Create interactive dashboards to present trends and insights.
+
+[WP14] Final Review and Feedback
+
+Collect feedback and refine the project deliverables.
+
+[WP15] Final Submission and Dissemination
+
+Submit the final report, visualizations, and dashboards to stakeholders.
 
 ---
 
