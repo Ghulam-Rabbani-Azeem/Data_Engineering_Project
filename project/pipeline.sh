@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python ./project/pipeline.py
+python ./pipeline.py
 
 echo "Data pipeline execution completed..."
