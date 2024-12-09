@@ -19,7 +19,7 @@ jobs:
       - name: Run Tests
         run: |
           chmod +x tests.sh
-          ./tests.sh
+          ./project/tests.sh
         env:
           # Use CI secrets for sensitive information
           SECRET_API_KEY: ${{ secrets.SECRET_API_KEY }}
