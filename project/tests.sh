@@ -16,3 +16,4 @@ pytest -s system-test.py --maxfail=1 --disable-warnings --tb=short -q
 
 # Exit with the status of pytest
 exit $?
+//
