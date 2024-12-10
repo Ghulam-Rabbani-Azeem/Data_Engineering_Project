@@ -10,27 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
+      # Step 1: Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Kaggle API credentials
+      # Step 2: Set up Kaggle API credentials from GitHub Secrets
       - name: Set up Kaggle API credentials
         run: |
           mkdir -p ~/.kaggle
           echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
           chmod 600 ~/.kaggle/kaggle.json
 
-      # Step 3: Install necessary dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install kaggle  # Ensure Kaggle CLI is installed
+          pip install kaggle
 
       # Step 4: Download the dataset from Kaggle
       - name: Download Dataset
         run: |
-          kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data  
+          kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data
 
       # Step 5: Run tests
       - name: Run tests
