@@ -41,7 +41,7 @@ jobs:
         run: |
           kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data
 
-      # Step 7: Download Dataset 2 (Renewable Energy Consumption in the U.S.)
+      # Step 7: Download Dataset 2 (Renewable Energy Consumption)
       - name: Download Dataset 2 (Renewable Energy Consumption)
         run: |
           kaggle datasets download -d alistairking/renewable-energy-consumption-in-the-u-s -p data
