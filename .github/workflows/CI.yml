@@ -21,18 +21,22 @@ jobs:
           echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
           chmod 600 ~/.kaggle/kaggle.json
 
-      # Step 3: Install dependencies
+      # Step 3: Debugging: Verify Kaggle API key
+      - name: Debugging:Verify Kaggle API key
+        run: cat ~/.kaggle/kaggle.json
+
+      # Step 4: Install dependencies
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           pip install kaggle
 
-      # Step 4: Download the dataset from Kaggle
+      # Step 5: Download the dataset from Kaggle
       - name: Download Dataset
         run: |
           kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data
 
-      # Step 5: Run tests
+      # Step 6: Run tests
       - name: Run tests
         run: |
           chmod +x tests.sh
