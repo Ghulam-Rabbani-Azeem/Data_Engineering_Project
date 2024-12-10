@@ -1,12 +1,9 @@
 name: Continuous Integration
 
-# Trigger this workflow on every push to the main branch
 on:
   push:
     branches:
       - main
-    paths:
-      - project/**
 
 jobs:
   run-tests:
@@ -20,10 +17,9 @@ jobs:
       # Step 2: Run the test script
       - name: Run Tests
         run: |
+          cd project       
           chmod +x tests.sh
-          ./project/**
-
+          ./tests.sh
         env:
-          # Use CI secrets for sensitive information
           SECRET_API_KEY: ${{ secrets.SECRET_API_KEY }}
-        
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
