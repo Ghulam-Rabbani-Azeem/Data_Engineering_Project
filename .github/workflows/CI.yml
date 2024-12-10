@@ -10,39 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the repository
+      # Step 1: Checkout code
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Python environment and dependencies
-      - name: Set up Python environment
+      # Step 2: Set up Kaggle API credentials
+      - name: Set up Kaggle API credentials
         run: |
-          python3 -m venv .venv
-          source .venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
-
-      # Step 3: Install Kaggle CLI and configure it
-      - name: Install Kaggle CLI
-        run: |
-          pip install kaggle
           mkdir -p ~/.kaggle
           echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
           chmod 600 ~/.kaggle/kaggle.json
 
-      # Step 4: Download the dataset
-      - name: Download dataset
+      # Step 3: Install necessary dependencies
+      - name: Install dependencies
         run: |
-          mkdir -p data
-          kaggle datasets download -d your-dataset-id -p data/
-          unzip data/*.zip -d data/
-          ls -la data  # List contents for debugging
+          pip install -r requirements.txt
+          pip install kaggle  # Ensure Kaggle CLI is installed
 
-      # Step 5: Run the tests
-      - name: Run Tests
+      # Step 4: Download the dataset from Kaggle
+      - name: Download Dataset
         run: |
-          cd project
+          kaggle datasets download -d <your-dataset-id> -p data  # Replace <your-dataset-id> with the correct dataset identifier
+
+      # Step 5: Run tests
+      - name: Run tests
+        run: |
           chmod +x tests.sh
           ./tests.sh
-        env:
-          SECRET_API_KEY: ${{ secrets.SECRET_API_KEY }}
