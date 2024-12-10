@@ -30,11 +30,13 @@ jobs:
           echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
           chmod 600 ~/.kaggle/kaggle.json
 
-      # Step 4: Mock or download dataset (if required)
-      - name: Prepare dataset
+      # Step 4: Download the dataset
+      - name: Download dataset
         run: |
           mkdir -p data
-          cp tests/mocks/emissions.csv data/emissions.csv
+          kaggle datasets download -d your-dataset-id -p data/
+          unzip data/*.zip -d data/
+          ls -la data  # List contents for debugging
 
       # Step 5: Run the tests
       - name: Run Tests
@@ -44,4 +46,3 @@ jobs:
           ./tests.sh
         env:
           SECRET_API_KEY: ${{ secrets.SECRET_API_KEY }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
