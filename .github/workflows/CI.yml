@@ -30,7 +30,7 @@ jobs:
       # Step 4: Download the dataset from Kaggle
       - name: Download Dataset
         run: |
-          kaggle datasets download -d <your-dataset-id> -p data  # Replace <your-dataset-id> with the correct dataset identifier
+          kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data  
 
       # Step 5: Run tests
       - name: Run tests
