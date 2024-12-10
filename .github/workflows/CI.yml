@@ -14,10 +14,32 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Run the test script
+      # Step 2: Set up Python environment and dependencies
+      - name: Set up Python environment
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 3: Install Kaggle CLI and configure it
+      - name: Install Kaggle CLI
+        run: |
+          pip install kaggle
+          mkdir -p ~/.kaggle
+          echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json
+
+      # Step 4: Mock or download dataset (if required)
+      - name: Prepare dataset
+        run: |
+          mkdir -p data
+          cp tests/mocks/emissions.csv data/emissions.csv
+
+      # Step 5: Run the tests
       - name: Run Tests
         run: |
-          cd project       
+          cd project
           chmod +x tests.sh
           ./tests.sh
         env:
