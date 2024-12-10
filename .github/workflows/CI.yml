@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Kaggle API credentials from GitHub Secrets
+      # Step 2: Set up Kaggle API credentials
       - name: Set up Kaggle API credentials
         run: |
           mkdir -p ~/.kaggle
@@ -22,7 +22,7 @@ jobs:
           chmod 600 ~/.kaggle/kaggle.json
 
       # Step 3: Debugging: Verify Kaggle API key
-      - name: Debugging:Verify Kaggle API key
+      - name: Debugging: Verify Kaggle API key
         run: cat ~/.kaggle/kaggle.json
 
       # Step 4: Install dependencies
@@ -31,12 +31,22 @@ jobs:
           pip install -r requirements.txt
           pip install kaggle
 
-      # Step 5: Download the dataset from Kaggle
-      - name: Download Dataset
+      # Step 5: Create data directory if not exists
+      - name: Create data directory
+        run: |
+          mkdir -p data
+
+      # Step 6: Download datasets from Kaggle
+      - name: Download Dataset 1 (Emissions)
         run: |
           kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data
 
-      # Step 6: Run tests
+      # Step 7: If you have another dataset for `dataset.csv`, download it here
+       - name: Download Dataset 2 (Dataset)
+         run: |
+         kaggle datasets download -d alistairking/renewable-energy-consumption-in-the-u-s?resource=download -p data
+
+      # Step 8: Run tests
       - name: Run tests
         run: |
           chmod +x tests.sh
