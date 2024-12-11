@@ -10,36 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-    
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
+          cd project
+          python -m venv .venv
+          source .venv/bin/activate
           pip install -r requirements.txt
           pip install kaggle
 
-      # Step 4: Create data directory if not exists
       - name: Create data directory
         run: |
+          cd project
           mkdir -p data
 
-      # Step 5: Download datasets from Kaggle
       - name: Download Dataset 1 (Emissions)
         run: |
-          kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data
+          cd project/data
+          kaggle datasets download -d abdelrahman16/co2-emissions-usa
+          unzip co2-emissions-usa.zip
 
-      # Step 6: Download Dataset 2 (Renewable Energy Consumption)
       - name: Download Dataset 2 (Renewable Energy Consumption)
         run: |
-          kaggle datasets download -d alistairking/renewable-energy-consumption-in-the-u-s -p data
+          cd project/data
+          kaggle datasets download -d alistairking/renewable-energy-consumption-in-the-u-s
+          unzip renewable-energy-consumption-in-the-u-s.zip
 
-      # Step 7: Run tests
       - name: Run tests
         run: |
           cd project
-            chmod +x tests.sh
-            ./tests.sh
+          chmod +x tests.sh
+          ./tests.sh
