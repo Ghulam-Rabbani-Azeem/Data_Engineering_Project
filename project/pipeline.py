@@ -3,7 +3,7 @@ import pandas as pd
 import sqlite3
 
 # Constants
-DATA_DIR = "D:\\AllProjects\\made-template\\data"
+DATA_DIR = "\data"
 DATASET_1 = "alistairking/renewable-energy-consumption-in-the-u-s"
 DATASET_2 = "abdelrahman16/co2-emissions-usa"
 DB_PATH = os.path.join(DATA_DIR, "renewable_energy.sqlite3")
