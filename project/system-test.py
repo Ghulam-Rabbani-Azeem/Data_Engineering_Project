@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 
 # Constants
-DATA_DIR = ".\data"
+DATA_DIR = "./data"
 DB_PATH = os.path.join(DATA_DIR, "renewable_energy.sqlite3")
 DATASET_1_PATH = os.path.join(DATA_DIR, "emissions.csv")
 DATASET_2_PATH = os.path.join(DATA_DIR, "dataset.csv")
