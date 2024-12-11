@@ -46,7 +46,6 @@ jobs:
       # Step 7: Download Dataset 2 (Renewable Energy Consumption)
       - name: Download Dataset 2 (Renewable Energy Consumption)
         run: kaggle datasets download -d alistairking/renewable-energy-consumption-in-the-u-s -p data
-
       # Step 8: Run tests
       - name: Run tests
         run: |
