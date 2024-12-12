@@ -39,14 +39,8 @@ jobs:
       - name: Create data directory
         run: mkdir -p ./data
 
-      # Step 6: Download Dataset 1 (Emissions)
-      - name: Download Dataset 1 (Emissions)
-        run: kaggle datasets download -d abdelrahman16/co2-emissions-usa -p data
-
-      # Step 7: Download Dataset 2 (Renewable Energy Consumption)
-      - name: Download Dataset 2 (Renewable Energy Consumption)
-        run: kaggle datasets download -d alistairking/renewable-energy-consumption-in-the-u-s -p data
-      # Step 8: Run tests
+      
+      # Step 6: Run tests
       - name: Run tests
         run: |
           cd project
