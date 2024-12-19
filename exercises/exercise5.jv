@@ -29,7 +29,7 @@ pipeline GTFSDataProcessingPipeline {
     enclosing: '"';
   }
 
-  constraint ZoneConstraint on integer {
+  constraint ZoneConstraint oftype Constraint {
     value == 1925;
   }
 
