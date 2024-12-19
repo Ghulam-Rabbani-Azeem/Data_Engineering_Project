@@ -1,63 +1,67 @@
 pipeline GTFSDataProcessingPipeline {
 
-  DataDownloader
-    -> ArchiveHandler
-    -> FilePickerBlock
-    -> TextHandler
-    -> CSVHandler
-    -> SchemaMapper
-    -> DatabaseLoader;
+  // Download data from the specified URL
+  GTFSDataDownloader
+    -> GTFSArchiveProcessor;
 
-  block DataDownloader oftype HttpExtractor {
+  // Process the downloaded zip file archive
+  GTFSArchiveProcessor
+    -> GTFSFileSelector
+    -> GTFSTextProcessor
+    -> GTFSCsvProcessor
+    -> GTFSTableProcessor
+    -> GTFSSQLiteWriter;
+
+  block GTFSDataDownloader oftype HttpExtractor {
       url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
   }
 
-  block ArchiveHandler oftype ArchiveInterpreter {
+  block GTFSArchiveProcessor oftype ArchiveInterpreter {
     archiveType: "zip";
   }
 
-  block FilePickerBlock oftype FilePicker {
+  block GTFSFileSelector oftype FilePicker {
     path: "./stops.txt";
   }
 
-  block TextHandler oftype TextFileInterpreter {
+  block GTFSTextProcessor oftype TextFileInterpreter {  
     encoding: "utf8"; 
   }
 
-  block CSVHandler oftype CSVInterpreter {
+  block GTFSCsvProcessor oftype CSVInterpreter { 
     delimiter: ",";
     enclosing: '"';
   }
 
-  constraint ZoneConstraint oftype Constraint {
-    value == 1925;
+  valuetype ZoneIDType oftype integer {
+    constraints: [ ValidZoneId ];
+  } 
+
+  block GTFSTableProcessor oftype TableInterpreter {
+    header: true; // csv includes a header row
+    columns: [
+      "stop_id" oftype integer, 
+      "stop_name" oftype text, 
+      "stop_lat" oftype GeoCoordinatesType,
+      "stop_lon" oftype GeoCoordinatesType,
+      "zone_id" oftype ZoneIDType
+    ]; // define column structure
   }
 
-  constraint CoordinateRangeConstraint oftype RangeConstraint {
+  constraint GeoCoordinatesRange oftype RangeConstraint {
     lowerBound: -90;
     upperBound: 90;
+    lowerBoundInclusive: true;
+    upperBoundInclusive: true;
   }
 
-  valuetype ZoneIDType oftype integer {
-    constraints: [ZoneConstraint];
+  valuetype GeoCoordinatesType oftype decimal {
+    constraints: [GeoCoordinatesRange];
   }
 
-  valuetype CoordinateType oftype decimal {
-    constraints: [CoordinateRangeConstraint];
-  }
+  constraint ValidZoneId on integer: value == 1925;
 
-  block SchemaMapper oftype TableInterpreter {
-    header: true;
-    columns: [
-      "stop_id" oftype integer,
-      "stop_name" oftype text,
-      "stop_lat" oftype CoordinateType,
-      "stop_lon" oftype CoordinateType,
-      "zone_id" oftype ZoneIDType
-    ];
-  }
-
-  block DatabaseLoader oftype SQLiteLoader {
+  block GTFSSQLiteWriter oftype SQLiteLoader {
     table: "stops";
     file: "./gtfs.sqlite";
   }
