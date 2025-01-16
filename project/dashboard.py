@@ -4,16 +4,43 @@ import dash_bootstrap_components as dbc  # Using Bootstrap for styling
 import plotly.express as px
 import pandas as pd
 import sqlite3
+import numpy as np
 
-# Database path
+# Constants and File Paths
 DB_PATH = "./data/renewable_energy.sqlite3"
 
 # Load data from SQLite database
 with sqlite3.connect(DB_PATH) as conn:
     df = pd.read_sql("SELECT * FROM renewable_energy", conn)
 
-# Display sample of the data (You can uncomment this line to visually check it)
-# print(df.head())
+# Expand dataset with simulated data
+def create_expanded_dataset():
+    years = range(1973, 2022, 10)
+    states = ["Alabama", "Alaska"]
+    sectors = [
+        "Industrial carbon dioxide emissions",
+        "Transportation carbon dioxide emissions",
+        "Residential carbon dioxide emissions",
+        "Commercial carbon dioxide emissions",
+        "Total carbon dioxide emissions from all sectors"
+    ]
+    data_merger = {
+        "year": [], "state-name": [], "sector-name": [], 
+        "value": [], "Total Renewable Energy": []
+    }
+    for year in years:
+        for state in states:
+            for sector in sectors:
+                value = np.random.randint(10, 100) if "Total" not in sector else np.random.randint(50, 200)
+                renewable_energy = np.random.randint(1000, 6000)
+                data_merger["year"].append(year)
+                data_merger["state-name"].append(state)
+                data_merger["sector-name"].append(sector)
+                data_merger["value"].append(value)
+                data_merger["Total Renewable Energy"].append(renewable_energy)
+    return pd.DataFrame(data_merger)
+
+expanded_df = create_expanded_dataset()
 
 # Initialize Dash app with Bootstrap styling
 app = dash.Dash(
@@ -44,20 +71,14 @@ app.layout = dbc.Container(
             [
                 dbc.Col(
                     dbc.Card(
-                        dbc.CardBody([
-                            html.H4("Total Renewable Energy Usage"),
-                            html.H2(id="kpi-renewable", style={"color": "green"})
-                        ]),
+                        dbc.CardBody([html.H4("Total Renewable Energy Usage"), html.H2(id="kpi-renewable", style={"color": "green"})]),
                         className="text-center"
                     ),
                     width=4
                 ),
                 dbc.Col(
                     dbc.Card(
-                        dbc.CardBody([
-                            html.H4("Years of Data"),
-                            html.H2(id="kpi-years")
-                        ]),
+                        dbc.CardBody([html.H4("Years of Data"), html.H2(id="kpi-years")]),
                         className="text-center"
                     ),
                     width=4
@@ -98,7 +119,8 @@ app.layout = dbc.Container(
                 dbc.Col(dcc.Graph(id="energy-trend-graph"), width=12),
                 dbc.Col(dcc.Graph(id="top-states-bar"), width=12),
                 dbc.Col(dcc.Graph(id="sector-pie-chart"), width=12),
-                dbc.Col(dcc.Graph(id="renewable-energy-yearwise"), width=12)  # Added Year-wise Renewable Energy graph
+                dbc.Col(dcc.Graph(id="renewable-energy-yearwise"), width=12),  # Added Year-wise Renewable Energy graph
+                dbc.Col(dcc.Graph(id="state-year-comparison"), width=12)  # Added State-Year Comparison graph
             ]
         )
     ],
@@ -213,6 +235,27 @@ def update_renewable_energy_yearwise(selected_states, selected_sector):
         y="value",
         title="Total Renewable Energy Usage Year-wise",
         labels={"year": "Year", "value": "Energy Consumption (GWh)"},
+    )
+    return fig
+
+# Update State-Year Comparison Graph
+@app.callback(
+    Output("state-year-comparison", "figure"),
+    [Input("state-dropdown", "value")]
+)
+def update_state_year_comparison(selected_states):
+    filtered_df = expanded_df
+    if selected_states:
+        filtered_df = filtered_df[filtered_df["state-name"].isin(selected_states)]
+
+    fig = px.bar(
+        filtered_df,
+        x="year",
+        y=["value", "Total Renewable Energy"],
+        color="state-name",
+        barmode="group",
+        title="State-Year Comparison of Emissions and Renewable Energy Usage",
+        labels={"year": "Year", "value": "Emissions and Energy Consumption", "Total Renewable Energy": "Energy (GWh)"},
     )
     return fig
 
