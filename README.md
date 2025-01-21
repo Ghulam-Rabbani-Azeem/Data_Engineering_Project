@@ -2,7 +2,7 @@
 <h1 style="text-align: center;">
   Analyzing the Impact of Renewable Energy Adoption on U.S.  
   <br>  
-  Carbon Emissions
+  		Carbon Emissions
 </h1>
   
 
