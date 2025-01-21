@@ -13,7 +13,7 @@
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. By analyzing data on renewable energy consumption and emissions, we aim to uncover trends, correlations, and actionable insights to inform sustainable development strategies.  
 
-[**Project Report**](project/report.ipynb): Analyze datasets to derive key findings and create visual representations.  
+[**Project Report**](project/analysis-report.pdf): Analyze datasets to derive key findings and create visual representations.  
 
 [**Presentation Slides**](project/slides.pptx): Summary of findings in a concise format.  
 
