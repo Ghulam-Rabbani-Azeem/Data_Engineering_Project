@@ -1,9 +1,12 @@
+<table align="center" width="100%">
+  <tr>
+    <td align="center">
+      <h1>Analyzing the Impact of Renewable Energy Adoption on U.S.</h1>
+      <h1>Carbon Emissions</h1>
+    </td>
+  </tr>
+</table>
 
-<h1 style="text-align: center; margin-left: 50px; margin-right: 50px;">
-  Analyzing the Impact of Renewable Energy Adoption on U.S.  
-  <br>  
-  Carbon Emissions
-</h1>
 
   
 
