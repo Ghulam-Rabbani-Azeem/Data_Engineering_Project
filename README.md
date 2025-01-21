@@ -1,11 +1,10 @@
-<table align="center" width="100%">
+< align="center" width="100%">
   <tr>
     <td align="center">
       <h1>Analyzing the Impact of Renewable Energy Adoption on U.S.</h1>
       <h1>Carbon Emissions</h1>
     </td>
   </tr>
-</table>
 
 
   
