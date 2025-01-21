@@ -1,9 +1,10 @@
 
-<h1 style="text-align: center;">
+<h1 style="text-align: center; margin-left: 50px; margin-right: 50px;">
   Analyzing the Impact of Renewable Energy Adoption on U.S.  
   <br>  
-  		Carbon Emissions
+  Carbon Emissions
 </h1>
+
   
 
 <img src="image.png" width="1000" height="300"> 
