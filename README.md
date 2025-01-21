@@ -1,13 +1,12 @@
-< align="center" width="100%">
-  <tr>
-    <td align="center">
+<table style="border: none; width: 100%; text-align: center;">
+  <tr style="border: none;">
+    <td style="border: none;">
       <h1>Analyzing the Impact of Renewable Energy Adoption on U.S.</h1>
       <h1>Carbon Emissions</h1>
     </td>
   </tr>
+</table>
 
-
-  
 
 <img src="image.png" width="1000" height="300"> 
 
