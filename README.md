@@ -52,8 +52,82 @@ cd project
 # Install dependencies  
 pip install -r requirements.txt  
 
+## Project Structure  
+
+The following key files and scripts are present in the project folder:  
+- `pipeline.py`: The Python script containing the automated data pipeline for downloading, cleaning, and processing datasets.  
+- `pipeline.sh`: A shell script to execute the `pipeline.py` script.  
+- `test.sh`: A shell script to set up the environment, ensure dependencies are installed, run the pipeline, and execute system tests with `pytest`.  
+- `.github/workflows/CI.yml`: A GitHub Actions workflow for continuous integration, ensuring automated tests are executed on every push to the `main` branch.  
+- `requirements.txt`: A list of required Python packages for the project.  
+
+## Continuous Integration Workflow  
+
+The GitHub Actions workflow file (`CI.yml`) automates testing, ensuring consistent validation of the pipeline after every code change. It performs the following steps:  
+1. **Checkout Repository**: Downloads the project files from the repository.  
+2. **Set up Python Environment**: Installs Python 3.10.  
+3. **Install Dependencies**: Installs project requirements using `pip`.  
+4. **Configure Kaggle API**: Sets up Kaggle credentials (stored as GitHub secrets) for dataset downloads.  
+5. **Run Tests**: Executes the `test.sh` script to validate the pipeline.
+
+## Description of Shell Scripts  
+
+### `test.sh`  
+The `test.sh` script performs the following actions:  
+1. Activates the virtual environment using `.venv/Scripts/activate`.  
+2. Ensures that all dependencies listed in `requirements.txt` are installed.  
+3. Runs the data pipeline by executing the `pipeline.py` script to produce outputs.  
+4. Executes system tests using `pytest` with detailed output, halting after the first failure.  
+5. Exits with the status code from `pytest` to signal success or failure.  
+
+### `pipeline.sh`  
+The `pipeline.sh` script is a simplified tool to execute the data pipeline. It performs the following actions:  
+1. Runs the `pipeline.py` script.  
+2. Displays a message indicating that the data pipeline execution is completed.  
+
+These scripts provide flexibility in managing the data pipeline and ensure robust testing and execution for consistent results.
+## Automated Testing (system-test.py)
+
+Automated testing is integral to ensuring the robustness and accuracy of the pipeline. The `system-test.py` script validates key components of the pipeline, including:
+
+- **Data Directory Verification:** Ensures that the `data` directory exists.
+- **Dataset Availability:** Confirms the presence of required datasets in the specified paths.
+- **Data Readability:** Verifies that datasets are not corrupted and can be read into pandas DataFrames.
+- **SQLite Database Creation:** Ensures the SQLite database is generated successfully.
+- **Database Content Validation:** Checks that the `renewable_energy` table in the SQLite database is populated with data.
 
 
+## Renewable Energy Dashboard Code Details  
+
+### Key Features  
+
+1. **Data Loading and Transformation**  
+   - Reads data from an SQLite database (`renewable_energy.sqlite3`) containing renewable energy and CO₂ emissions statistics.  
+   - Simulates additional data to expand the dataset using the function `create_expanded_dataset()`.
+
+2. **Dashboard Initialization**  
+   - Uses the `Dash` framework for creating interactive web applications.  
+   - Applies `dash-bootstrap-components` for consistent and responsive UI styling.  
+   - Utilizes `Plotly` for creating interactive graphs.
+
+3. **Dynamic Graphs and KPIs**  
+   - **KPI Cards:**  
+     - Displays metrics for total renewable energy usage and the years of data available.  
+   - **Graphs:**  
+     - Renewable Energy Trends (line graph by year and energy type).  
+     - Top States by Energy Usage (bar graph of top 10 states).  
+     - Sector-Wise Energy Distribution (pie chart for energy usage by sector).  
+     - Year-Wise Renewable Energy Trends (bar chart showing yearly totals).  
+     - State-Year Comparison (grouped bar chart for state emissions and renewable energy).
+
+4. **Filtering Options**  
+   - Dropdown filters allow users to select specific states and sectors, dynamically updating graphs and KPIs.
+
+5. **Interactive Graphs**  
+   - Visualizations respond to user input in real time, enhancing data exploration.
+
+6. **Data Simulation**  
+   - Adds state-sector-year data for more comprehensive analysis.
 
 
 
