@@ -1,6 +1,6 @@
 # Analyzing the Impact of Renewable Energy Adoption on U.S. Carbon Emissions  
 
-<img src="image.jpg" width="700" height="466">  
+<img src="/image.jpg" width="900" height="400">  
 
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. By analyzing data on renewable energy consumption and emissions, we aim to uncover trends, correlations, and actionable insights to inform sustainable development strategies.  
