@@ -1,3 +1,59 @@
+# Analyzing the Impact of Renewable Energy Adoption on U.S. Carbon Emissions  
+
+<img src="image.jpg" width="700" height="466">  
+
+## Project Overview  
+This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. By analyzing data on renewable energy consumption and emissions, we aim to uncover trends, correlations, and actionable insights to inform sustainable development strategies.  
+
+[**Project Report**](project/report.ipynb): Analyze datasets to derive key findings and create visual representations.  
+
+[**Presentation Slides**](project/slides.pptx): Summary of findings in a concise format.  
+
+[**Presentation Video Link**](project/presentation-video.md): Detailed video presentation of the project.  
+
+---
+
+## Datasets  
+
+1. **[Renewable Energy Consumption in the U.S.](Renewable Energy Data)**  
+   - Metadata: [Renewable Energy Metadata](Renewable Energy Metadata)  
+   - Type: CSV  
+
+2. **[CO₂ Emissions in the U.S.](CO₂ Emissions Data)**  
+   - Metadata: [CO₂ Emissions Metadata](CO₂ Emissions Metadata)  
+   - Type: CSV  
+
+---
+
+## Tools and Technologies Used  
+- **Data Analysis**: Python (Pandas, NumPy)  
+- **Visualization**: Matplotlib, Seaborn  
+
+---
+
+## Installation and Usage  
+Follow these steps to set up the project environment and run the analysis scripts:  
+
+```bash  
+# Clone the repository  
+git clone https://github.com/Ghulam-Rabbani-Azeem/Data_Engineering_Project 
+
+# Navigate into the project repository folder  
+cd project  
+
+# Install dependencies  
+pip install -r requirements.txt  
+
+
+
+
+
+
+
+
+
+
+
 # Methods of Advanced Data Engineering Template Project
 
 This template project provides some structure for your open data project in the MADE module at FAU.
