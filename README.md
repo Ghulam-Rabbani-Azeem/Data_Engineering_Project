@@ -33,7 +33,6 @@ Both datasets are preprocessed and stored in a SQLite database (`renewable_energ
 
 Follow these steps to set up the project:  
 
-```bash
 # Clone the repository
 git clone https://github.com/Ghulam-Rabbani-Azeem/Data_Engineering_Project.git
 
@@ -99,6 +98,5 @@ The automated GitHub Actions workflow adds robustness to the project by performi
 
 Run the following command to start the dashboard:  
 
-```bash
 # Command to execute the dashboard
 python dashboard.py
