@@ -47,7 +47,6 @@ The automated data pipeline is designed to streamline the data preparation proce
 3. **Database Loading**: Stores the cleaned and transformed data into an SQLite database for efficient querying and analysis.  
 
 ---
-
 ## Testing Suite [here](system-test.py)  
 The `system-test.py` script ensures the reliability of the data pipeline by validating essential components. It includes:  
 
@@ -56,7 +55,6 @@ The `system-test.py` script ensures the reliability of the data pipeline by vali
 - **Database Integrity Validation**: Verifies the successful creation of the SQLite database and checks its content to ensure accuracy.  
 
 ---
-
 ## Automated Workflow [here](.github/workflows/CI.yml)  
 The automated GitHub Actions workflow adds robustness to the project by performing these tasks on every code change:  
 
@@ -65,7 +63,6 @@ The automated GitHub Actions workflow adds robustness to the project by performi
 3. **Kaggle API Integration**: Sets up Kaggle credentials for automatic dataset downloads.  
 
 ---
-
 # Renewable Energy Dashboard  
 
 ## Key Features  
@@ -79,18 +76,13 @@ The automated GitHub Actions workflow adds robustness to the project by performi
   - **Yearly Energy Data**: Highlights renewable energy trends on an annual basis.  
 
 ---
-
 ## Technologies Used  
 
 - **Dash**: Framework for building interactive web-based applications.  
 - **Plotly**: Library for creating dynamic and detailed visualizations.  
 - **Dash Bootstrap Components**: Provides responsive and aesthetic UI styling.  
 ---
-## How to Run the Dashboard  
-
-Run the following command to start the dashboard:  
-
-# Command to execute the dashboard
+## Command to execute the dashboard
 python dashboard.py
 ## Author
 This project is done by Ghulam Rabbani
