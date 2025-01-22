@@ -42,3 +42,63 @@ cd Data_Engineering_Project
 
 # Install dependencies
 pip install -r requirements.txt
+
+
+# Data Pipeline and Testing  
+
+## Data Pipeline [here](pipeline.py)  
+The automated data pipeline is designed to streamline the data preparation process for analysis and visualization. It performs the following tasks:  
+
+1. **Data Download**: Retrieves renewable energy and emissions datasets.  
+2. **Data Cleaning and Transformation**: Processes the data by addressing inconsistencies, filling missing values, and ensuring proper formatting.  
+3. **Database Loading**: Stores the cleaned and transformed data into an SQLite database for efficient querying and analysis.  
+
+---
+
+## Testing Suite [here](system-test.py)  
+The `system-test.py` script ensures the reliability of the data pipeline by validating essential components. It includes:  
+
+- **Data Directory Verification**: Ensures the `data` directory exists.  
+- **Dataset Availability Check**: Confirms that all required datasets are present and readable.  
+- **Database Integrity Validation**: Verifies the successful creation of the SQLite database and checks its content to ensure accuracy.  
+
+---
+
+## Automated Workflow [here](.github/workflows/CI.yml)  
+The automated GitHub Actions workflow adds robustness to the project by performing these tasks on every code change:  
+
+1. **Dependency Installation**: Installs the required libraries and sets up the Python environment.  
+2. **Pipeline and System Tests**: Executes the `test.sh` script to validate the pipeline and perform system-level checks.  
+3. **Kaggle API Integration**: Sets up Kaggle credentials for automatic dataset downloads.  
+
+---
+
+# Renewable Energy Dashboard  
+
+## Key Features  
+
+- **Dynamic Data Filtering**: Enables users to select specific states, sectors, and years to refine the displayed insights.  
+- **Interactive Visualizations**:  
+  - **KPI Cards**: Displays metrics such as total renewable energy usage and the data range available for analysis.  
+  - **Trends Graph**: Shows renewable energy consumption trends over time by type.  
+  - **Sector-Wise Distribution**: A pie chart visualizing energy usage by sectors.  
+  - **State Comparisons**: Grouped bar charts for comparing state emissions and renewable energy usage.  
+  - **Yearly Energy Data**: Highlights renewable energy trends on an annual basis.  
+
+---
+
+## Technologies Used  
+
+- **Dash**: Framework for building interactive web-based applications.  
+- **Plotly**: Library for creating dynamic and detailed visualizations.  
+- **Dash Bootstrap Components**: Provides responsive and aesthetic UI styling.  
+
+---
+
+## How to Run the Dashboard  
+
+Run the following command to start the dashboard:  
+
+```bash
+# Command to execute the dashboard
+python dashboard.py
