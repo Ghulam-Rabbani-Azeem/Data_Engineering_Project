@@ -5,12 +5,6 @@
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. The goal is to analyze trends, uncover correlations, and provide actionable insights to support sustainable development strategies.
 
-[**Pipeline Script**](pipeline.py): Automates data processing, transformation, and database loading.  
-
-[**Automated Testing Suite**](system-test.py): Ensures pipeline integrity with system-level validations.  
-
-[**GitHub Workflow**](.github/workflows/CI.yml): Automates CI testing with GitHub Actions.  
-
 ---
 
 ### Datasets  
@@ -91,12 +85,14 @@ The automated GitHub Actions workflow adds robustness to the project by performi
 - **Dash**: Framework for building interactive web-based applications.  
 - **Plotly**: Library for creating dynamic and detailed visualizations.  
 - **Dash Bootstrap Components**: Provides responsive and aesthetic UI styling.  
-
 ---
-
 ## How to Run the Dashboard  
 
 Run the following command to start the dashboard:  
 
 # Command to execute the dashboard
 python dashboard.py
+## Author
+This project is done by Ghulam Rabbani
+## License
+This project is licensed under the CC0-1 Universal License - see the [LICENSE.md](LICENSE) file for details.
