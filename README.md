@@ -52,7 +52,7 @@ cd project
 # Install dependencies  
 pip install -r requirements.txt  
 
-## Project Structure  
+### Project Structure  
 
 The following key files and scripts are present in the project folder:  
 - `pipeline.py`: The Python script containing the automated data pipeline for downloading, cleaning, and processing datasets.  
