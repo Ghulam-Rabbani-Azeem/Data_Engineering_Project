@@ -1,5 +1,6 @@
 
 <img src="image.jpg" width="1000" height="466">
+
 # Renewable Energy and CO₂ Emissions Analysis Project
 
 
