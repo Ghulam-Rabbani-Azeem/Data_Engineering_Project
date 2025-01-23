@@ -1,6 +1,6 @@
 # Renewable Energy and CO₂ Emissions Analysis Project
 
-<img src="image.jpg" width="900" height="400">
+<img src="image.jpg" width="1000" height="466">
 
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. The goal is to analyze trends, uncover correlations, and provide actionable insights to support sustainable development strategies.
@@ -28,6 +28,7 @@ Both datasets are preprocessed and stored in a SQLite database (`renewable_energ
 - **Database**: SQLite  
 
 ## Directory Structure
+```
 project/
 ├── .github/
 │   └── workflows/
@@ -38,6 +39,7 @@ project/
 ├── requirements.txt       # Python dependencies
 ├── data/                  # Directory to store datasets and database
 └── pipeline.py            # Main pipeline logic
+```
 ---
 ## Installation and Setup  
  ```bash
