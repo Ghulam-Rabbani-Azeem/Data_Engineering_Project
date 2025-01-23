@@ -1,6 +1,6 @@
 # Renewable Energy and CO₂ Emissions Analysis Project
 
-<img src="image.jpg" width="900" height="300">
+<img src="image.jpg" width="900" height="400">
 
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. The goal is to analyze trends, uncover correlations, and provide actionable insights to support sustainable development strategies.
@@ -21,13 +21,14 @@ This project investigates the relationship between renewable energy adoption acr
 Both datasets are preprocessed and stored in a SQLite database (`renewable_energy.sqlite3`) for analysis.  
 
 ---
-
 ## Tools and Technologies Used  
-- **Programming**: Python (Pandas, SQLite, Plotly, Dash)  
+- **Programming**: Python (Pandas,matplotlib, seaborn, SQLite, Plotly, Dash)  
 - **Visualization**: Plotly, Dash Bootstrap Components  
 - **Automation**: GitHub Actions  
 - **Database**: SQLite  
 
+## Project Structure
+project/ ├── .github/ │ └── workflows/ │ └── CI.yml # GitHub Actions workflow for CI ├── pipeline.sh # Script to run the data pipeline ├── tests.sh # Script to validate the pipeline and tests ├── system-test.py # System tests for the data pipeline ├── requirements.txt # Python dependencies ├── data/ # Directory to store datasets and database └── pipeline.py # Main pipeline logic
 ---
 ## Installation and Setup  
  ```bash
@@ -42,6 +43,11 @@ source .venv/bin/activate   # For Unix/MacOS
 
 ## Install dependencies
 pip install -r requirements.txt
+## To execute the data pipeline, run:
+sh pipeline.sh
+## To validate the pipeline, execute:
+sh tests.sh
+
 ```
 # Data Pipeline and Testing  
 
