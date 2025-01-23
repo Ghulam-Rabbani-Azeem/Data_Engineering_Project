@@ -1,6 +1,6 @@
 # Renewable Energy and CO₂ Emissions Analysis Project
 
-<img src="image.jpg" width="700" height="466">
+<img src="image.jpg" width="900" height="300">
 
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. The goal is to analyze trends, uncover correlations, and provide actionable insights to support sustainable development strategies.
@@ -29,21 +29,20 @@ Both datasets are preprocessed and stored in a SQLite database (`renewable_energ
 - **Database**: SQLite  
 
 ---
-
 ## Installation and Setup  
-
-Follow these steps to set up the project:  
-
+ ```bash
 ## Clone the repository
 git clone https://github.com/Ghulam-Rabbani-Azeem/Data_Engineering_Project.git
 
 ## Navigate to the project folder
-cd Data_Engineering_Project
+cd Project
+python -m venv .venv
+source .venv/bin/activate   # For Unix/MacOS
+.venv\Scripts\activate      # For Windows
 
 ## Install dependencies
 pip install -r requirements.txt
-
-
+```
 # Data Pipeline and Testing  
 
 ## Data Pipeline [here](/project/pipeline.py)  
