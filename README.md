@@ -71,7 +71,10 @@ pip install -r requirements.txt
 sh pipeline.sh
 ## To validate the pipeline, execute:
 sh tests.sh
-
+## To view the Dashboard, execute:
+py dashboard.py
+## To view the Dashboar, click on link:
+Dash is running on http://127.0.0.1:8050/
 ```
 # Data Pipeline and Testing  
 
