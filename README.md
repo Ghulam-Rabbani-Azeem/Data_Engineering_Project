@@ -34,13 +34,13 @@ Both datasets are preprocessed and stored in a SQLite database (`renewable_energ
 
 Follow these steps to set up the project:  
 
-# Clone the repository
+## Clone the repository
 git clone https://github.com/Ghulam-Rabbani-Azeem/Data_Engineering_Project.git
 
-# Navigate to the project folder
+## Navigate to the project folder
 cd Data_Engineering_Project
 
-# Install dependencies
+## Install dependencies
 pip install -r requirements.txt
 
 
