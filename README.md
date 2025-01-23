@@ -1,6 +1,7 @@
-# Renewable Energy and CO₂ Emissions Analysis Project
 
 <img src="image.jpg" width="1000" height="466">
+# Renewable Energy and CO₂ Emissions Analysis Project
+
 
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. The goal is to analyze trends, uncover correlations, and provide actionable insights to support sustainable development strategies.
