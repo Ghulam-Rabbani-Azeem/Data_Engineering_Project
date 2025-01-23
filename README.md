@@ -21,7 +21,14 @@ This project investigates the relationship between renewable energy adoption acr
 - **Data URL:** [CO₂ Emissions Data](https://www.kaggle.com/datasets/abdelrahman16/co2-emissions-usa)
 - **Data Type:** CSV
 Both datasets are preprocessed and stored in a SQLite database (`renewable_energy.sqlite3`) for analysis.  
+---
+[**Data Report**](project/data-report.pdf)
 
+[**Project Report**](project/data_exploration.ipynb)
+
+[**Presentation Slides**](project/slides.pdf)
+
+[**Presenation Video Link**](project/presentation-video.md)
 ---
 ## Tools and Technologies Used  
 - **Programming**: Python (Pandas,matplotlib, seaborn, SQLite, Plotly, Dash)  
