@@ -1,16 +1,23 @@
 # Renewable Energy and CO₂ Emissions Analysis Project
 
-<img src="image.png" width="700" height="466">
+<img src="image.jpg" width="700" height="466">
 
 ## Project Overview  
 This project investigates the relationship between renewable energy adoption across different sectors and states in the U.S. and its impact on carbon dioxide (CO₂) emissions. The goal is to analyze trends, uncover correlations, and provide actionable insights to support sustainable development strategies.
 
 ---
 
-### Datasets  
-1. [**Emissions Dataset**](data/emissions.csv): Includes carbon dioxide emissions data for various sectors across U.S. states.  
-2. [**Renewable Energy Dataset**](data/dataset.csv): Contains renewable energy usage statistics across multiple states and sectors.  
+## **Datasources**
 
+### **Datasource 1:** Renewable Energy Consumption in the U.S.
+- **Metadata URL:** [Renewable Energy Metadata](https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s)
+- **Data URL:** [Renewable Energy Data](https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s?resource=download)
+- **Data Type:** CSV
+
+### **Datasource 2:** CO₂ Emissions in the U.S.
+- **Metadata URL:** [CO₂ Emissions Metadata](https://www.kaggle.com/datasets/abdelrahman16/co2-emissions-usa)
+- **Data URL:** [CO₂ Emissions Data](https://www.kaggle.com/datasets/abdelrahman16/co2-emissions-usa)
+- **Data Type:** CSV
 Both datasets are preprocessed and stored in a SQLite database (`renewable_energy.sqlite3`) for analysis.  
 
 ---
