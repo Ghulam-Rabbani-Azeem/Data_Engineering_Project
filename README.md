@@ -1,4 +1,4 @@
-# Renewable Energy and CO₂ Emissions Analysis Project
+ Renewable Energy and CO₂ Emissions Analysis Project
 
 <img src="image.jpg" width="700" height="466">
 
