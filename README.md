@@ -1,4 +1,4 @@
- Renewable Energy and CO₂ Emissions Analysis Project
+# Renewable Energy and CO₂ Emissions Analysis Project
 
 <img src="image.jpg" width="700" height="466">
 
@@ -46,7 +46,7 @@ pip install -r requirements.txt
 
 # Data Pipeline and Testing  
 
-## Data Pipeline [here](pipeline.py)  
+## Data Pipeline [here](/project/pipeline.py)  
 The automated data pipeline is designed to streamline the data preparation process for analysis and visualization. It performs the following tasks:  
 
 1. **Data Download**: Retrieves renewable energy and emissions datasets.  
@@ -54,7 +54,7 @@ The automated data pipeline is designed to streamline the data preparation proce
 3. **Database Loading**: Stores the cleaned and transformed data into an SQLite database for efficient querying and analysis.  
 
 ---
-## Testing Suite [here](system-test.py)  
+## Testing Suite [here](/project/system-test.py)  
 The `system-test.py` script ensures the reliability of the data pipeline by validating essential components. It includes:  
 
 - **Data Directory Verification**: Ensures the `data` directory exists.  
