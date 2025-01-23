@@ -41,17 +41,18 @@ Both datasets are preprocessed and stored in a SQLite database (`renewable_energ
 
 ## Directory Structure
 ```
-project/
-├── .github/
-│   └── workflows/
-│       └── CI.yml         # GitHub Actions workflow for CI
-├── pipeline.sh            # Script to run the data pipeline
-├── tests.sh               # Script to validate the pipeline and tests
-├── system-test.py         # System tests for the data pipeline
-├── dashboard.py           # Dashboard for visualization
-├── requirements.txt       # Python dependencies
-├── data/                  # Directory to store datasets and database
-└── pipeline.py            # Main pipeline logic
+Data_Engineering_Project/
+│   ├── .github/
+│   │   └── workflows/
+│   │       └── CI.yml         # GitHub Actions workflow for CI
+├── project/
+│   ├── pipeline.sh            # Script to run the data pipeline
+│   ├── tests.sh               # Script to validate the pipeline and tests
+│   ├── system-test.py         # System tests for the data pipeline
+│   ├── dashboard.py           # Dashboard for visualization
+│   ├── requirements.txt       # Python dependencies
+│   ├── data/                  # Directory to store datasets and database
+│   └── pipeline.py            # Main pipeline logic
 ```
 ---
 ## Installation and Setup  
