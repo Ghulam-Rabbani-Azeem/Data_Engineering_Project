@@ -36,6 +36,7 @@ project/
 ├── pipeline.sh            # Script to run the data pipeline
 ├── tests.sh               # Script to validate the pipeline and tests
 ├── system-test.py         # System tests for the data pipeline
+├── dashboard.py           # Dashboard for visualization
 ├── requirements.txt       # Python dependencies
 ├── data/                  # Directory to store datasets and database
 └── pipeline.py            # Main pipeline logic
