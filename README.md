@@ -1,7 +1,7 @@
 
 <img src="image.jpg" width="1000" height="466">
 
-# Renewable Energy and CO₂ Emissions Analysis Project
+# Impact of Renewable Energy Adoption on U.S. Carbon Emissions
 
 
 ## Project Overview  
