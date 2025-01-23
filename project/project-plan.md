@@ -1,7 +1,7 @@
 # Project Plan
 
 ## **Title**
-Analyzing the Impact of Renewable Energy Adoption on U.S. Carbon Emissions
+Impact of Renewable Energy Adoption on U.S. Carbon Emissions
 
 ## **Main Question**
 How does renewable energy adoption across different sectors and states in the U.S. impact carbon dioxide emissions?
