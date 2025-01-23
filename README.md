@@ -7,7 +7,7 @@ This project investigates the relationship between renewable energy adoption acr
 
 ---
 
-## **Datasources**
+### **Datasources**
 
 ### **Datasource 1:** Renewable Energy Consumption in the U.S.
 - **Metadata URL:** [Renewable Energy Metadata](https://www.kaggle.com/datasets/alistairking/renewable-energy-consumption-in-the-u-s)
@@ -27,8 +27,17 @@ Both datasets are preprocessed and stored in a SQLite database (`renewable_energ
 - **Automation**: GitHub Actions  
 - **Database**: SQLite  
 
-## Project Structure
-project/ ├── .github/ │ └── workflows/ │ └── CI.yml # GitHub Actions workflow for CI ├── pipeline.sh # Script to run the data pipeline ├── tests.sh # Script to validate the pipeline and tests ├── system-test.py # System tests for the data pipeline ├── requirements.txt # Python dependencies ├── data/ # Directory to store datasets and database └── pipeline.py # Main pipeline logic
+## Directory Structure
+project/
+├── .github/
+│   └── workflows/
+│       └── CI.yml         # GitHub Actions workflow for CI
+├── pipeline.sh            # Script to run the data pipeline
+├── tests.sh               # Script to validate the pipeline and tests
+├── system-test.py         # System tests for the data pipeline
+├── requirements.txt       # Python dependencies
+├── data/                  # Directory to store datasets and database
+└── pipeline.py            # Main pipeline logic
 ---
 ## Installation and Setup  
  ```bash
