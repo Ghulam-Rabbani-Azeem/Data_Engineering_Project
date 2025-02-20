@@ -135,4 +135,3 @@ python3 /project/pipeline.py
 - [Course Forum](https://www.studon.fau.de/frm5003028.html)
 
 🚀 **Happy Coding!**
-
